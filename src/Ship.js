@@ -1,13 +1,17 @@
 const Ship = (length) => {
-  let whereHit = new Array(length).fill(false);
-
+  if (length < 1) throw new Error("length cannot be zero");
+  //hitArray is an array of length = length, filled with all false (no hits) to start
+  let hitArray = new Array(length).fill(false);
   const hit = (loc) => {
-    let hitArray = [...whereHit];
+    if (hitArray[loc] === true) return false;
     hitArray[loc] = true;
-    return hitArray;
+    return true;
+  };
+  const isSunk = () => {
+    return hitArray.includes(false) ? false : true;
   };
 
-  return { length, hit };
+  return { length, hitArray, hit, isSunk };
 };
 
 export default Ship;
