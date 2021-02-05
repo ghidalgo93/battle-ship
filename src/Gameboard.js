@@ -1,34 +1,31 @@
 import Ship from "./Ship";
+import { outOfRange, calculateCoords, arrayEquals } from "./helpers";
 
 const Gameboard = () => {
   let ships = [];
+  const getShips = () => ships;
+
   const locationTaken = (xCoord, yCoord) => {
-    return false;
-  };
-  const calculateCoords = (xCoord, yCoord, direction, length) => {
-    if (length < 1 || direction !== ("h" || "v")) throw TypeError;
-    let coordinates = [];
-    if (direction === "h") {
-      for (let i = xCoord; i < xCoord + length; i++) {
-        coordinates = [...coordinates, [i, yCoord]];
-      }
-    } else if (direction === "v") {
-      for (let i = yCoord; i < yCoord + length; i++) {
-        coordinates = [...coordinates, [xCoord, i]];
+    for (let i = 0; i < ships.length; i++) {
+      for (let j = 0; j < ships[i].coords.length; j++) {
+        if (arrayEquals(ships[i].coords[j], [xCoord, yCoord])) {
+          return true;
+        }
       }
     }
-    return coordinates;
+    return false;
   };
 
   const placeShip = (x, y, dir, len) => {
     if (locationTaken(x, y)) return false;
     const coords = calculateCoords(x, y, dir, len);
+    if (outOfRange(coords, 9)) return false;
     const ship = Ship(len);
-    ships = [...ships, { ship, coords }];
+    ships = ships.concat({ ship, coords });
     return true;
   };
 
-  return { locationTaken, placeShip };
+  return { getShips, locationTaken, placeShip };
 };
 
 export default Gameboard;
