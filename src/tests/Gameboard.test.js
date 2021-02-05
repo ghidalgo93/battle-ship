@@ -1,23 +1,35 @@
-import { locationTaken, Gameboard } from "../Gameboard";
+import Gameboard from "../Gameboard";
 
-// locationTaken tests
-test("happy path: locationTaken", () => {
-  let testArray = new Array(10).fill(0).map(() => new Array(10).fill(""));
-  expect(locationTaken(0, 0, testArray)).toBe(false);
+//calculateCoords tests, only for dev (not exported in prod)
+xtest("happy path: calculateCoords", () => {
+  const board = Gameboard();
+  expect(board.calculateCoords(2, 3, "h", 4)).toEqual([
+    [2, 3],
+    [3, 3],
+    [4, 3],
+    [5, 3],
+  ]);
 });
-test("locationTaken should return false if array location is occupied #2", () => {
-  let testArray = new Array(10).fill(0).map(() => new Array(10).fill(""));
-  testArray[0][2] = "x";
-  expect(locationTaken(0, 2, testArray)).toBe(true);
+
+//locationTaken tests, only for dev (not exported in prod)
+xtest("happy path: location taken", () => {
+  const board = Gameboard();
+  expect(board.locationTaken(0, 0)).toBe(false);
+});
+xtest("happy path: location taken", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 4);
+  expect(board.locationTaken(0, 1)).toBe(true);
 });
 
 // placeShip tests
-test("happy path: placeShip", () => {
+xtest("happy path: placeShip", () => {
   const board = Gameboard();
   expect(board.placeShip(0, 0, "h", 4)).toBe(true);
 });
+
 test("placeShip should return false if called on already taken space", () => {
   const board = Gameboard();
   board.placeShip(0, 0, "h", 4);
-  expect(board.placeShip(1, 0, "v", 2)).toBe(false);
+  expect(board.placeShip(1, 0, "h", 2)).toBe(false);
 });
