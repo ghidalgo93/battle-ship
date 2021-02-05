@@ -74,6 +74,24 @@ test("getMissedShots should return a length of 1 after a single missed shot", ()
   expect(board.getMissedShots().length).toBe(1);
 });
 
+// allSunk tests
+test("happy path: allSunk returns false if a single ship is placed with no hits yet", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 4);
+  expect(board.allSunk()).toBe(false);
+});
+test("allSunk should return true if a single ship all hit", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 2);
+  board.receiveAttack(0, 0);
+  board.receiveAttack(1, 0);
+  expect(board.allSunk()).toBe(true);
+});
+test("allSunk throws error when there are no ships placed", () => {
+  const board = Gameboard();
+  expect(() => board.allSunk()).toThrow();
+});
+
 ////locationTaken tests, only for dev (not exported in prod)
 //xtest("happy path: location taken, location NOT taken so should return false", () => {
 //  const board = Gameboard();
