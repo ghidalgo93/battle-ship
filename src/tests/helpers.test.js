@@ -1,4 +1,4 @@
-import { outOfRange, calculateCoords } from "./helpers";
+import { outOfRange, calculateCoords } from "../helpers";
 
 //calculateCoords tests, only for dev (not exported in prod)
 test("happy path: calculateCoords", () => {
@@ -9,7 +9,7 @@ test("happy path: calculateCoords", () => {
     [5, 3],
   ]);
 });
-test.only("calculateCoords can calculate coords for vertical direction", () => {
+test("calculateCoords can calculate coords for vertical direction", () => {
   expect(calculateCoords(2, 3, "v", 4)).toEqual([
     [2, 3],
     [2, 4],
