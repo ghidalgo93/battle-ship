@@ -37,10 +37,15 @@ test("happy path: receiveAttack should return false if received attack that miss
   board.placeShip(0, 0, "h", 4);
   expect(board.receiveAttack(0, 2)).toBe(false);
 });
-test("receiveAttack should return true if received attack that hit", () => {
+test("receiveAttack should return true if received attack that hit (horizontal)", () => {
   const board = Gameboard();
   board.placeShip(0, 0, "h", 4);
-  expect(board.receiveAttack(2, 0)).toBe(true);
+  expect(board.receiveAttack(3, 0)).toBe(true);
+});
+test("receiveAttack should return true if received attack that hit (vertical)", () => {
+  const board = Gameboard();
+  board.placeShip(2, 2, "v", 4);
+  expect(board.receiveAttack(2, 4)).toBe(true);
 });
 test("receiveAttack should be able to handle miss for multiple ships added", () => {
   const board = Gameboard();
@@ -72,6 +77,25 @@ test("getMissedShots should return a length of 1 after a single missed shot", ()
   board.placeShip(0, 0, "h", 4);
   board.receiveAttack(2, 1);
   expect(board.getMissedShots().length).toBe(1);
+});
+
+//getHitShots tests
+test("happy path: getHitShots should return empty initially instantiated hitShots array", () => {
+  const board = Gameboard();
+  expect(board.getHitShots()).toEqual([]);
+  expect(board.getHitShots()).toHaveLength(0);
+});
+test("getHitShots should return a length of 1 after a single hit shot", () => {
+  const board = Gameboard();
+  board.placeShip(2, 2, "h", 4);
+  board.receiveAttack(4, 2);
+  expect(board.getHitShots()).toHaveLength(1);
+});
+test("getHitShots should return a length of 0 after a single missed shot", () => {
+  const board = Gameboard();
+  board.placeShip(3, 5, "h", 4);
+  board.receiveAttack(2, 1);
+  expect(board.getHitShots()).toHaveLength(0);
 });
 
 // allSunk tests

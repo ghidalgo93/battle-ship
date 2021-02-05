@@ -4,8 +4,10 @@ import { outOfRange, calculateCoords, arrayEquals } from "./helpers";
 const Gameboard = () => {
   let ships = [];
   let missedShots = [];
+  let hitShots = [];
   const getShips = () => ships;
   const getMissedShots = () => missedShots;
+  const getHitShots = () => hitShots;
 
   // ships include ship obj, check all and see if the number sunk === number of ships
   const allSunk = () => {
@@ -32,6 +34,7 @@ const Gameboard = () => {
       const hit = coords.some((coord) => arrayEquals(coord, [xCoord, yCoord]));
       if (hit) {
         ships[i].ship.hit(xCoord, yCoord);
+        hitShots = [...hitShots, [xCoord, yCoord]];
         return true;
       }
     }
@@ -49,7 +52,14 @@ const Gameboard = () => {
     return true;
   };
 
-  return { getShips, getMissedShots, placeShip, receiveAttack, allSunk };
+  return {
+    getShips,
+    getMissedShots,
+    getHitShots,
+    placeShip,
+    receiveAttack,
+    allSunk,
+  };
 };
 
 export default Gameboard;
