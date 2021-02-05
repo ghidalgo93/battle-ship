@@ -9,6 +9,14 @@ test("happy path: calculateCoords", () => {
     [5, 3],
   ]);
 });
+test.only("calculateCoords can calculate coords for vertical direction", () => {
+  expect(calculateCoords(2, 3, "v", 4)).toEqual([
+    [2, 3],
+    [2, 4],
+    [2, 5],
+    [2, 6],
+  ]);
+});
 
 //outOfRange tests
 test("happy path: outOfRange returns false if within range", () => {

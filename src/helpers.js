@@ -12,7 +12,9 @@ function outOfRange(coords, range) {
 }
 
 const calculateCoords = (xCoord, yCoord, direction, length) => {
-  if (length < 1 || direction !== ("h" || "v")) throw TypeError;
+  if (length < 1) throw new Error("length must be positive");
+  if (!(direction === "h" || direction === "v"))
+    throw new Error("direction must be h or v");
   let coordinates = [];
   if (direction === "h") {
     for (let i = xCoord; i < xCoord + length; i++) {
