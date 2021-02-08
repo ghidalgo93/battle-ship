@@ -1,4 +1,4 @@
-import AiPlayer from "../AiPlayer";
+import AiPlayer from "../gameObjs/AiPlayer";
 
 //getRandomLegalMove tests
 test("happy path: getRandomLegalMove should return an array of length 2", () => {

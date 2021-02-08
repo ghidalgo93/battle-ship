@@ -1,4 +1,4 @@
-import Ship from "../Ship";
+import Ship from "../gameObjs/Ship";
 
 // length tests
 test("happy path: length", () => {

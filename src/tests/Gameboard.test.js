@@ -1,4 +1,4 @@
-import Gameboard from "../Gameboard";
+import Gameboard from "../gameObjs/Gameboard";
 
 // ships array properties tests
 test("happy path: getShip returns the instantiated ships empty array", () => {
@@ -114,6 +114,12 @@ test("allSunk should return true if a single ship all hit", () => {
 test("allSunk throws error when there are no ships placed", () => {
   const board = Gameboard();
   expect(() => board.allSunk()).toThrow();
+});
+
+// randomizeShips tests
+test("happy path: randomizeShips should return ships array with length  5", () => {
+  const board = Gameboard();
+  expect(board.randomizeShips()).toHaveLength(5);
 });
 
 ////locationTaken tests, only for dev (not exported in prod)

@@ -1,5 +1,5 @@
 import Ship from "./Ship";
-import { outOfRange, calculateCoords, arrayEquals } from "./helpers";
+import { outOfRange, calculateCoords, arrayEquals } from "../helpers";
 
 const Gameboard = () => {
   let ships = [];
@@ -52,6 +52,21 @@ const Gameboard = () => {
     return true;
   };
 
+  //place ships randomly on the board for a quick start
+  const randomizeShips = () => {
+    const shipLengths = [5, 4, 3, 3, 2];
+    shipLengths.forEach((len) => {
+      let x, y, randDir;
+      do {
+        x = Math.floor(Math.random() * 10);
+        y = Math.floor(Math.random() * 10);
+        let coinToss = Math.floor(Math.random() * 2);
+        randDir = coinToss < 1 ? "h" : "v";
+      } while (!placeShip(x, y, randDir, len));
+    });
+    return ships;
+  };
+
   return {
     getShips,
     getMissedShots,
@@ -59,6 +74,7 @@ const Gameboard = () => {
     placeShip,
     receiveAttack,
     allSunk,
+    randomizeShips,
   };
 };
 

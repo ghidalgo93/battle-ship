@@ -12,7 +12,6 @@ const AiPlayer = () => {
       const x = Math.floor(Math.random() * 10);
       const y = Math.floor(Math.random() * 10);
       coords = [x, y];
-      console.log(coords);
     } while (
       prototype.getMissedShots().includes(coords) ||
       prototype.getHitShots().includes(coords)

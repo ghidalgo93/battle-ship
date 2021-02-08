@@ -1,4 +1,4 @@
-import Player from "../Player";
+import Player from "../gameObjs/Player";
 
 // getName tests
 test("happy path: getName returns 'bob'", () => {
