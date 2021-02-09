@@ -11,35 +11,48 @@ player2.randomizeShips();
 
 const Game = (props) => {
   // reset func: new game function to randomizeShips and reset boards
+  const [gameover, setGameover] = useState(false);
+  const handleGameover = () => {
+    setGameover(!gameover);
+  };
 
   const [p1isNext, setP1IsNext] = useState(true);
+  const handleTurnSwitch = () => {
+    setP1IsNext(!p1isNext);
+  };
 
   useEffect(() => {
     if (!p1isNext) {
       player2.attack(player1);
       handleTurnSwitch();
     }
-  }, [p1isNext]);
+  }, [p1isNext, handleTurnSwitch]);
 
-  const handleTurnSwitch = () => {
-    setP1IsNext(!p1isNext);
+  const message = () => {
+    if (gameover) {
+      return <div>Game Over</div>;
+    } else {
+      return (
+        <div>{`Next Player: ${
+          p1isNext ? player1.getName() : player2.getName()
+        }`}</div>
+      );
+    }
   };
 
   const content = (
     <div>
-      <div>{`Next Player: ${
-        p1isNext ? player1.getName() : player2.getName()
-      }`}</div>
+      {message()}
       <div className={"row"}>
         <Board
           player={player1}
           handleTurnSwitch={handleTurnSwitch}
-          handleGameover={props.handleGameover}
+          handleGameover={handleGameover}
         />
         <Board
           player={player2}
           handleTurnSwitch={handleTurnSwitch}
-          handleGameover={props.handleGameover}
+          handleGameover={handleGameover}
         />
       </div>
       {/* newGame btn */}

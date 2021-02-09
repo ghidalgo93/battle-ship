@@ -1,5 +1,4 @@
 import Gameboard from "./Gameboard";
-import { arrayEquals } from "../helpers";
 
 const AiPlayer = () => {
   const prototype = Gameboard();
@@ -11,21 +10,11 @@ const AiPlayer = () => {
     coords = [x, y];
     return coords;
   };
-  const legalMove = (coord) => {
-    const includes = (elem) => arrayEquals(elem, coord);
-    if (
-      prototype.getHitShots().some(includes) ||
-      prototype.getMissedShots().some(includes)
-    ) {
-      return false;
-    }
-    return true;
-  };
   const attack = (enemy) => {
     let coords;
     do {
       coords = getRandomMove();
-    } while (!legalMove(coords));
+    } while (!enemy.legalShot(coords));
     if (enemy.receiveAttack(coords[0], coords[1])) return true;
     return false;
   };
@@ -33,7 +22,6 @@ const AiPlayer = () => {
   return Object.assign({}, prototype, {
     getName,
     attack,
-    legalMove,
     getRandomMove,
   });
 };

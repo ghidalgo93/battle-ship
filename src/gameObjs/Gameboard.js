@@ -28,8 +28,19 @@ const Gameboard = () => {
     }
   };
 
+  const legalShot = (coord) => {
+    const includes = (elem) => arrayEquals(elem, coord);
+    if (getHitShots().some(includes) || getMissedShots().some(includes)) {
+      return false;
+    }
+    return true;
+  };
+
   // check each ship obj in ships to see if their coords include the hit coords
   const receiveAttack = (xCoord, yCoord) => {
+    if (!legalShot([xCoord, yCoord])) {
+      throw new Error("not legal shot");
+    }
     for (let i = 0; i < ships.length; i++) {
       const coords = ships[i].coords;
       const hit = coords.some((coord) => arrayEquals(coord, [xCoord, yCoord]));
@@ -80,6 +91,7 @@ const Gameboard = () => {
     allSunk,
     randomizeShips,
     locationHasShip,
+    legalShot,
   };
 };
 

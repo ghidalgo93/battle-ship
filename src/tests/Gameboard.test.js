@@ -166,3 +166,15 @@ test("locationHasShip should return true when ship already placed at location", 
   board.placeShip(0, 0, "h", 4);
   expect(board.locationHasShip(3, 0)).toBe(true);
 });
+//legal move test
+test("happy path: legalMove should return true when there are no hits/misses", () => {
+  const board = Gameboard();
+  const coords = [0, 0];
+  expect(board.legalShot(coords)).toBe(true);
+});
+test("legalMove should return false when called on coord that has been hit", () => {
+  const board = Gameboard();
+  const coords = [0, 0];
+  board.receiveAttack(coords[0], coords[1]);
+  expect(board.legalShot(coords)).toBe(false);
+});
