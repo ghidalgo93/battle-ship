@@ -28,21 +28,8 @@ const Game = (props) => {
     }
   }, [p1isNext, handleTurnSwitch]);
 
-  const message = () => {
-    if (gameover) {
-      return <div>Game Over</div>;
-    } else {
-      return (
-        <div>{`Next Player: ${
-          p1isNext ? player1.getName() : player2.getName()
-        }`}</div>
-      );
-    }
-  };
-
-  const content = (
+  let content = (
     <div>
-      {message()}
       <div className={"row"}>
         <Board
           player={player1}
@@ -58,6 +45,10 @@ const Game = (props) => {
       {/* newGame btn */}
     </div>
   );
+
+  if (gameover) {
+    content = <div>Game Over</div>;
+  }
 
   return content;
 };

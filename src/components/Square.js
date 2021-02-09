@@ -11,6 +11,11 @@ const Square = (props) => {
       setHitStyle("miss");
     } else if (props.player.getHitShots().some(includes)) {
       setHitStyle("hit");
+    } else if (
+      props.player.getAllShipCoords().some(includes) &&
+      props.player.getName() !== "Computer"
+    ) {
+      setHitStyle("viewShip");
     } else {
       setHitStyle("unknown");
     }

@@ -5,9 +5,11 @@ const Gameboard = () => {
   let ships = [];
   let missedShots = [];
   let hitShots = [];
+  let allShipCoords = [];
   const getShips = () => ships;
   const getMissedShots = () => missedShots;
   const getHitShots = () => hitShots;
+  const getAllShipCoords = () => allShipCoords.flat();
 
   // ships include ship obj, check all and see if the number sunk === number of ships
   const allSunk = () => {
@@ -63,7 +65,8 @@ const Gameboard = () => {
     const coords = calculateCoords(x, y, dir, len);
     if (outOfRange(coords, 9)) return false;
     const ship = Ship(len);
-    ships = ships.concat({ ship, coords });
+    ships = [...ships, { ship, coords }];
+    allShipCoords = [...allShipCoords, coords];
     return true;
   };
 
@@ -86,6 +89,7 @@ const Gameboard = () => {
     getShips,
     getMissedShots,
     getHitShots,
+    getAllShipCoords,
     placeShip,
     receiveAttack,
     allSunk,

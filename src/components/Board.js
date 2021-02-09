@@ -25,7 +25,7 @@ const Board = (props) => {
 
   const content = (
     <div>
-      Name: {props.player.getName()}
+      {props.player.getName()}
       <div className={"board"}>{renderSquares()}</div>
     </div>
   );

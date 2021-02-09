@@ -178,3 +178,21 @@ test("legalMove should return false when called on coord that has been hit", () 
   board.receiveAttack(coords[0], coords[1]);
   expect(board.legalShot(coords)).toBe(false);
 });
+
+//allShipCoords tests
+test("happy path: getAllShipCoords should start as empty array", () => {
+  const board = Gameboard();
+  expect(board.getAllShipCoords()).toHaveLength(0);
+});
+test("getAllShipCoords should have a length of 2 after ship of length 2 is added", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 2);
+  expect(board.getAllShipCoords()).toHaveLength(2);
+});
+test("getAllShipCoords should have a length of 9 after ship of 2, of 4, and of 3 are added", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 2);
+  board.placeShip(0, 1, "v", 4);
+  board.placeShip(5, 5, "v", 3);
+  expect(board.getAllShipCoords()).toHaveLength(9);
+});
