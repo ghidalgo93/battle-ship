@@ -1,5 +1,4 @@
-import Player from "../gameObjs/Player";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/App.css";
 import { arrayEquals } from "../helpers";
 
@@ -17,12 +16,14 @@ const Square = (props) => {
     }
   };
 
+  useEffect(() => {
+    renderStyle();
+  }, [props.player.getHitShots(), props.player.getMissedShots()]);
+
   const handleClick = () => {
     props.player.receiveAttack(props.coord[0], props.coord[1]);
-    renderStyle();
     props.handleTurnSwitch();
     //check for win condition
-    //switch turns
   };
 
   //if the player is a non-ai player, make their squares
