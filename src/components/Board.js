@@ -3,9 +3,7 @@ import "../styles/App.css";
 import Square from "./Square";
 
 const Board = (props) => {
-  const []
-
-  const renderBoard = () => {
+  const renderSquares = () => {
     let board = [];
     for (let i = 0; i < 10; i++) {
       let row = [];
@@ -26,8 +24,8 @@ const Board = (props) => {
 
   const content = (
     <div>
-      Name:{props.player.getName()}
-      <div className={"board"}>{renderBoard()}</div>
+      Name: {props.player.getName()}
+      <div className={"board"}>{renderSquares()}</div>
     </div>
   );
 
