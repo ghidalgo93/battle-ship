@@ -18,7 +18,12 @@ const AiPlayer = () => {
     );
     return coords;
   };
-  const attack = (enemy, coords) => {
+  // const attack = (enemy, coords) => {
+  //   if (enemy.receiveAttack(coords[0], coords[1])) return true;
+  //   return false;
+  // };
+  const attack = (enemy) => {
+    const coords = getRandomLegalMove();
     if (enemy.receiveAttack(coords[0], coords[1])) return true;
     return false;
   };
