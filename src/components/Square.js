@@ -1,3 +1,4 @@
+import Player from "../gameObjs/Player";
 import React, { useState } from "react";
 import "../styles/App.css";
 import { arrayEquals } from "../helpers";
@@ -23,7 +24,14 @@ const Square = (props) => {
     //check for win condition
     //switch turns
   };
-  return <button className={hitStyle} onClick={handleClick}></button>;
+
+  //if the player is a non-ai player, make their squares
+  let content = <button className={hitStyle} onClick={handleClick}></button>;
+  if (props.player.getName() !== "Computer") {
+    content = <button className={hitStyle} disabled></button>;
+  }
+
+  return content;
 };
 
 export default Square;
