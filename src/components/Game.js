@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/App.css";
 import Board from "./Board";
 import Player from "../gameObjs/Player";
@@ -10,7 +10,16 @@ player1.randomizeShips();
 player2.randomizeShips();
 
 const Game = () => {
+  // reset func: new game function to randomizeShips and reset boards
+
   const [p1isNext, setP1IsNext] = useState(true);
+
+  useEffect(() => {
+    if (!p1isNext) {
+      player2.attack(player1);
+      handleTurnSwitch();
+    }
+  }, [p1isNext]);
 
   const handleTurnSwitch = () => {
     setP1IsNext(!p1isNext);
