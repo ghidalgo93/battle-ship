@@ -44,6 +44,11 @@ test("receiveAttack should return true if received attack that hit (horizontal)"
 });
 test("receiveAttack should return true if received attack that hit (vertical)", () => {
   const board = Gameboard();
+  board.placeShip(4, 2, "v", 2);
+  expect(board.receiveAttack(4, 3)).toBe(true);
+});
+test("receiveAttack should return true if received attack that hit (vertical)", () => {
+  const board = Gameboard();
   board.placeShip(2, 2, "v", 4);
   expect(board.receiveAttack(2, 4)).toBe(true);
 });
@@ -78,6 +83,13 @@ test("getMissedShots should return a length of 1 after a single missed shot", ()
   board.receiveAttack(2, 1);
   expect(board.getMissedShots().length).toBe(1);
 });
+test("getMissedShots should have a single array of missed coords [0,0]", () => {
+  const board = Gameboard();
+  board.placeShip(1, 0, "h", 4);
+  board.receiveAttack(0, 0);
+  expect(board.getMissedShots()).toEqual([[0, 0]]);
+  expect(board.getHitShots()).toEqual([]);
+});
 
 //getHitShots tests
 test("happy path: getHitShots should return empty initially instantiated hitShots array", () => {
@@ -96,6 +108,13 @@ test("getHitShots should return a length of 0 after a single missed shot", () =>
   board.placeShip(3, 5, "h", 4);
   board.receiveAttack(2, 1);
   expect(board.getHitShots()).toHaveLength(0);
+});
+test("getHitShots should have a single array of hit coords [0,0]", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 4);
+  board.receiveAttack(0, 0);
+  expect(board.getHitShots()).toEqual([[0, 0]]);
+  expect(board.getMissedShots()).toEqual([]);
 });
 
 // allSunk tests
@@ -122,13 +141,28 @@ test("happy path: randomizeShips should return ships array with length  5", () =
   expect(board.randomizeShips()).toHaveLength(5);
 });
 
-////locationTaken tests, only for dev (not exported in prod)
-//xtest("happy path: location taken, location NOT taken so should return false", () => {
-//  const board = Gameboard();
-//  expect(board.locationTaken(0, 0)).toBe(false);
-//});
-//xtest("locationTaken should return true when ship already placed at location", () => {
-//  const board = Gameboard();
-//  board.placeShip(0, 0, "h", 4);
-//  expect(board.locationTaken(1, 0)).toBe(true);
-//});
+//locationHasShip tests, only for dev (not exported in prod)
+test("happy path: locationHasShip should return false before any ships placed", () => {
+  const board = Gameboard();
+  expect(board.locationHasShip(0, 0)).toBe(false);
+});
+test("locationHasShip should return false when called on empty space with ships placed", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 4);
+  expect(board.locationHasShip(0, 1)).toBe(false);
+});
+test("locationHasShip should return true when ship already placed at location", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 4);
+  expect(board.locationHasShip(1, 0)).toBe(true);
+});
+test("locationHasShip should return true when ship already placed at location", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 4);
+  expect(board.locationHasShip(0, 0)).toBe(true);
+});
+test("locationHasShip should return true when ship already placed at location", () => {
+  const board = Gameboard();
+  board.placeShip(0, 0, "h", 4);
+  expect(board.locationHasShip(3, 0)).toBe(true);
+});

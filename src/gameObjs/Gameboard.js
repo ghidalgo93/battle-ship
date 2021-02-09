@@ -20,7 +20,8 @@ const Gameboard = () => {
   };
 
   // check ships to see if coord is already taken
-  const locationTaken = (xCoord, yCoord) => {
+  const locationHasShip = (xCoord, yCoord) => {
+    if (ships.length < 1) return false;
     for (let i = 0; i < ships.length; i++) {
       const coords = ships[i].coords;
       return coords.some((coord) => arrayEquals(coord, [xCoord, yCoord]));
@@ -33,7 +34,10 @@ const Gameboard = () => {
       const coords = ships[i].coords;
       const hit = coords.some((coord) => arrayEquals(coord, [xCoord, yCoord]));
       if (hit) {
-        ships[i].ship.hit(xCoord, yCoord);
+        const index = coords.findIndex((elem) =>
+          arrayEquals(elem, [xCoord, yCoord])
+        );
+        ships[i].ship.hit(index);
         hitShots = [...hitShots, [xCoord, yCoord]];
         return true;
       }
@@ -44,7 +48,7 @@ const Gameboard = () => {
 
   // check if the location is a legal placement, if so add it
   const placeShip = (x, y, dir, len) => {
-    if (locationTaken(x, y)) return false;
+    if (locationHasShip(x, y)) return false;
     const coords = calculateCoords(x, y, dir, len);
     if (outOfRange(coords, 9)) return false;
     const ship = Ship(len);
@@ -75,6 +79,7 @@ const Gameboard = () => {
     receiveAttack,
     allSunk,
     randomizeShips,
+    locationHasShip,
   };
 };
 

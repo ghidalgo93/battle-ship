@@ -30,14 +30,22 @@ test("hitArray relects hit on a hit location correctly, ie no change", () => {
 });
 
 // hit tests
-test("happy path: hit", () => {
+test("happy path: hit returns true on a hit", () => {
   const ship = Ship(2);
   expect(ship.hit(0)).toBe(true);
 });
-test("hit returns when location has already been hit", () => {
+test("hit returns false when location has already been hit", () => {
   const ship = Ship(2);
   ship.hit(0);
   expect(ship.hit(0)).toBe(false);
+});
+test("hit will throw error if passed more than one argument", () => {
+  const ship = Ship(2);
+  expect(() => ship.hit(0, 0)).toThrow();
+});
+test("hit will throw error if loc is out of range", () => {
+  const ship = Ship(2);
+  expect(() => ship.hit(2)).toThrow();
 });
 
 //isSunk tests
