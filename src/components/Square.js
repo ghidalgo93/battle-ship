@@ -18,17 +18,18 @@ const Square = (props) => {
 
   useEffect(() => {
     renderStyle();
+    if (props.player.allSunk()) {
+      props.handleGameover();
+    }
   }, [props.player.getHitShots(), props.player.getMissedShots()]);
 
   const handleClick = () => {
     props.player.receiveAttack(props.coord[0], props.coord[1]);
     props.handleTurnSwitch();
-    //check for win condition
   };
 
-  //if the player is a non-ai player, make their squares
   let content = <button className={hitStyle} onClick={handleClick}></button>;
-  if (props.player.getName() !== "Computer") {
+  if (props.player.getName() !== "Computer" || hitStyle !== "unknown") {
     content = <button className={hitStyle} disabled></button>;
   }
 

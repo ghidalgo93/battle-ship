@@ -14,6 +14,7 @@ const Board = (props) => {
             coord={[i, j]}
             player={props.player}
             handleTurnSwitch={props.handleTurnSwitch}
+            handleGameover={props.handleGameover}
           />
         );
       }

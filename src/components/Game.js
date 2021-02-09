@@ -9,7 +9,7 @@ const player2 = AiPlayer();
 player1.randomizeShips();
 player2.randomizeShips();
 
-const Game = () => {
+const Game = (props) => {
   // reset func: new game function to randomizeShips and reset boards
 
   const [p1isNext, setP1IsNext] = useState(true);
@@ -31,8 +31,16 @@ const Game = () => {
         p1isNext ? player1.getName() : player2.getName()
       }`}</div>
       <div className={"row"}>
-        <Board player={player1} handleTurnSwitch={handleTurnSwitch} />
-        <Board player={player2} handleTurnSwitch={handleTurnSwitch} />
+        <Board
+          player={player1}
+          handleTurnSwitch={handleTurnSwitch}
+          handleGameover={props.handleGameover}
+        />
+        <Board
+          player={player2}
+          handleTurnSwitch={handleTurnSwitch}
+          handleGameover={props.handleGameover}
+        />
       </div>
       {/* newGame btn */}
     </div>

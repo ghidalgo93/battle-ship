@@ -5,9 +5,13 @@ import Game from "./components/Game";
 function App() {
   const [gameover, setGameover] = useState(false);
 
+  const handleGameover = () => {
+    setGameover(!gameover);
+  };
+
   let content = (
     <div className="App">
-      <Game />
+      <Game handlegameover={handleGameover} />
     </div>
   );
 
